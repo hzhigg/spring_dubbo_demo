@@ -1,0 +1,141 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.dubbo.customer</groupId>
+  <artifactId>web</artifactId>
+  <packaging>war</packaging>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>web Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+   <parent>
+ 	<groupId>com.dubbo.parent</groupId>
+ 	<artifactId>dubboparent</artifactId>
+ 	<version>0.0.1-SNAPSHOT</version>
+ 	<relativePath>../zk-parent</relativePath>
+  </parent>
+  
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
+    </dependency>
+      <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>3.1.0</version>
+    </dependency>
+    
+    <dependency>  
+	    <groupId>org.hibernate</groupId>  
+	    <artifactId>hibernate-validator</artifactId>  
+	    <version>5.2.4.Final</version>  
+	</dependency>  
+    
+    <dependency>
+	    <groupId>com.dubbo.facade.user</groupId>
+	    <artifactId>facade-user</artifactId>
+	    <version>${zk-facade-user.version}</version>
+	</dependency>  
+	<!-- service 引了没用 -->
+	 <!-- <dependency>
+   		<groupId>com.dubbo.service</groupId>
+	 	<artifactId>dubboservice</artifactId>
+ 		<version>${zk-user-service.version}</version>
+   	</dependency>  -->
+    <dependency>
+   		<groupId>com.dubbo.config</groupId>
+	 	<artifactId>dubboconfig</artifactId>
+ 		<version>${zk-common-config.version}</version>
+   	</dependency>
+    
+   <!-- 
+     <dependency>
+      <groupId>com.dubbo.provider</groupId>
+      <artifactId>provider</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency> -->
+    <!--  <dependency>
+          <groupId>com.alibaba</groupId>
+          <artifactId>dubbo</artifactId>
+          <version>2.5.3</version>
+     </dependency> -->
+     <!-- 解决：maven的传递依赖导致spring 4.2与spring 2.5包冲突 -->
+	 <dependency>
+	    <groupId>com.alibaba</groupId>
+	    <artifactId>dubbo</artifactId>
+	    <version>2.5.3</version>
+	    <exclusions>
+	        <exclusion>
+	            <artifactId>spring</artifactId>
+	            <groupId>org.springframework</groupId>
+	        </exclusion>
+	    </exclusions>
+	</dependency>
+    
+    <dependency>
+	    <groupId>log4j</groupId>
+	    <artifactId>log4j</artifactId>
+	    <version>1.2.17</version>
+	</dependency>
+    
+    <dependency> 
+		<groupId>com.101tec</groupId>
+		<artifactId>zkclient</artifactId>
+		<version>0.10</version>
+	</dependency>
+    
+       <!-- spring核心包 -->
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-core</artifactId>
+        <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-web</artifactId>
+        <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-oxm</artifactId>
+        <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-tx</artifactId>
+        <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-jdbc</artifactId>
+        <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-webmvc</artifactId>
+        <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-aop</artifactId>
+        <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context-support</artifactId>
+        <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-test</artifactId>
+        <version>${spring.version}</version>
+    </dependency>
+    
+    
+  </dependencies>
+  <build>
+    <finalName>zk</finalName>
+  </build>
+</project>

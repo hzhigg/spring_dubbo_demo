@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:util="http://www.springframework.org/schema/util" xmlns:task="http://www.springframework.org/schema/task"
+	   xmlns:aop="http://www.springframework.org/schema/aop" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd"
+	   default-lazy-init="true">
+
+ 	 <!-- 自动扫描 -->
+    <context:component-scan base-package="com.zk.web,com.common" />
+  
+    <!-- 加载配置属性文件 -->
+        <!-- 加载配置属性文件 -->
+   <context:property-placeholder ignore-unresolvable="true"  location="classpath*:**/*.properties" />   
+ 
+	
+	<!-- 使用Annotation自动注册Bean，解决事物失效问题：在主容器中不扫描@Controller注解，在SpringMvc中只扫描@Controller注解。  -->
+	<!-- <context:component-scan base-package="com.zk.web">base-package 如果多个，用“,”分隔
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan> -->
+	
+	<!-- 配置 JSR303 Bean Validator 定义 -->
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+
+	<!-- 缓存配置 -->
+	<!-- <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation" value="classpath:${ehcache.configFile}" />
+	</bean> -->
+	
+	<!-- 计划任务配置，用 @Service @Lazy(false)标注类，用@Scheduled(cron = "0 0 2 * * ?")标注方法 -->
+   <!--  <task:executor id="executor" pool-size="10"/> <task:scheduler id="scheduler" pool-size="10"/>
+    <task:annotation-driven scheduler="scheduler" executor="executor" proxy-target-class="true"/> -->
+
+	<!-- 配置aspectj自动代理   如果是配置文件配置则可以注释这一段-->
+	<!-- <aop:aspectj-autoproxy proxy-target-class="true"/> -->
+
+	
+ 	 <!-- 配置切面的Bean -->
+   <!--  <bean id="validationAspect" class="com.ssm.aop.ValidationAspect"></bean>
+    
+    配置AOP
+    <aop:config>
+       
+        配置切面及配置
+        <aop:aspect order="2" ref="validationAspect">
+         配置切点表达式 
+        <aop:pointcut id="pointcut" expression="execution(* com.ssm.service..*.*(..))" />
+            前置通知
+            <aop:before method="beforMethod" pointcut-ref="pointcut"/>
+            后置通知
+            <aop:after method="afterMethod" pointcut-ref="pointcut"/>
+            返回通知
+            <aop:after-returning method="afterReturnMethod" pointcut-ref="pointcut" returning="result"/>
+            异常通知
+            <aop:after-throwing method="afterThrowingMethod" pointcut-ref="pointcut" throwing="ex"/>
+        </aop:aspect>
+    </aop:config> -->
+    
+    
+
+    <import resource="classpath:spring-mvc.xml"/>
+    <import resource="classpath:dubbo-constumer.xml" />
+    <import resource="classpath:redis-config.xml"/>
+</beans>

@@ -1,0 +1,14 @@
+zk-common/target/
+zk-user-service/target/
+zk-user-service/.settings/
+zk-user-web/target/
+zk-user-web/.settings/
+zk-common-config/target/
+zk-common-parent/.settings/
+zk-common/.settings/
+zk-common-config/.settings/
+zk-common-config/src/main/webapp/WEB-INF/classes/
+zk-facade-user/.settings/
+zk-facade-user/target/
+*.project
+*.classpath

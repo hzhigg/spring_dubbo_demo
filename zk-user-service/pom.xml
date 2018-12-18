@@ -1,0 +1,144 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.dubbo.service</groupId>
+  <artifactId>dubboservice</artifactId>
+  <packaging>jar</packaging>
+  <version>${zk-user-service.version}</version>
+  <name>Service Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+  <parent>
+ 	<groupId>com.dubbo.parent</groupId>
+ 	<artifactId>dubboparent</artifactId>
+ 	<version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <!-- 指明编译源代码时使用的字符编码，maven编译的时候默认使用的GBK编码， 
+               通过project.build.sourceEncoding属性设置字符编码，告诉maven这个项目使用UTF-8来编译 --> 
+   <properties>  
+         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>  
+   </properties>  
+ 
+  
+  <dependencies>
+   
+    <dependency>
+   		<groupId>com.dubbo.facade.user</groupId>
+	 	<artifactId>facade-user</artifactId>
+ 		<version>${zk-facade-user.version}</version>
+   	</dependency> 
+   	<dependency>
+   		<groupId>com.dubbo.common</groupId>
+	 	<artifactId>dubbocommon</artifactId>
+ 		<version>${zk-common.version}</version>
+   	</dependency>
+   	
+   	<dependency>
+   		<groupId>com.dubbo.config</groupId>
+	 	<artifactId>dubboconfig</artifactId>
+ 		<version>${zk-common-config.version}</version>
+   	</dependency>
+    
+  </dependencies>
+  <build>
+    <finalName>zk-user-service</finalName>
+    
+    <resources>
+    	<resource>
+    		<targetPath>${project.build.directory}/classes</targetPath>
+    		<directory>src/main/resources</directory>
+    		<filtering>true</filtering>
+    		<includes>
+    			<include>**/*.xml</include>
+    			<include>**/*.properties</include> 
+    			<!-- 如果不明确需要那些东西可使用这种方式 -->
+    			<!-- <include>**/*.*</include> -->
+    		</includes>
+    	</resource>
+    	<resource>
+    		<!-- 将 directory的spring-context.xml内容拷贝到targetPath-->
+    		<targetPath>${project.build.directory}/classes/META-INF/spring</targetPath>
+    		<directory>src/main/resources</directory>
+    		<filtering>true</filtering>
+    		<includes>
+    			<include>spring-context.xml</include>
+    		</includes>
+    	</resource>
+    </resources>
+    
+    <pluginManagement>
+    	<plugins>
+    		<!-- 解决maven插件在eclipse内执行了一系列生命周期引起冲突 -->
+    		<plugin>
+    			<groupId>org.eclipse.m2e</groupId>
+    			<artifactId>lifecycle-mapping</artifactId>
+    			<version>1.0.0</version>
+    			<configuration>
+    				<lifecycleMappingMetadata>
+    					<pluginExecutions>
+    						<pluginExecution>
+    							<pluginExecutionFilter>
+    								<groupId>org.apache.maven.plugins</groupId>
+    								<artifactId>maven-dependency-plugin</artifactId>
+    								<versionRange>[2.0,)</versionRange>
+    								<goals>
+    									<goal>copy-dependencies</goal>
+    								</goals>
+    							</pluginExecutionFilter>
+    							<action>
+    								<ignore></ignore>
+    							</action>
+    						</pluginExecution>
+    					</pluginExecutions>
+    				</lifecycleMappingMetadata>
+    			</configuration>
+    		</plugin>
+    	</plugins>
+    </pluginManagement>
+    
+    <plugins>
+    	<!-- 打包jar文件时，配置manifest文件，加入lib包的jar依赖 -->
+    	<plugin>
+    		<groupId>org.apache.maven.plugins</groupId>
+    		<artifactId>maven-jar-plugin</artifactId>
+    		<configuration>
+    			<classesDirectory>target/classes/</classesDirectory>
+    			<archive>
+    				<manifest>
+    					<mainClass>com.alibaba.dubbo.container.Main</mainClass>
+    					<!-- 打包时MANIFEST.MF文件不记录的时间戳版本 -->
+    					<useUniqueVersions>false</useUniqueVersions>
+    					<addClasspath>true</addClasspath>
+    					<!-- 将服务依赖的包打包在lib目录 -->
+    					<classpathPrefix>lib/</classpathPrefix>
+    				</manifest>
+    				<manifestEntries>
+    					<Class-path>.</Class-path>
+    				</manifestEntries>
+    			</archive>
+    		</configuration>
+    	</plugin>
+    	<!-- 解决依赖包问题的插件 -->
+    	<plugin>
+    		<groupId>org.apache.maven.plugins</groupId>
+    		<artifactId>maven-dependency-plugin</artifactId>
+    		<executions>
+    			<execution>
+    				<id>copy-dependencies</id>
+    				<phase>package</phase>
+    				<goals>
+    					<goal>copy-dependencies</goal>
+    				</goals>
+    				<configuration>
+    					<type>jar</type>
+    					<includeTypes>jar</includeTypes>
+    					<useUniqueVersions>false</useUniqueVersions>
+    					<outputDirectory>${project.build.directory}/lib</outputDirectory>
+    				</configuration>
+    			</execution>
+    		</executions>
+    	</plugin>
+    </plugins>
+  </build>
+
+  
+</project>
