@@ -24,11 +24,11 @@
 			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/ckfinder-2.3.jar</systemPath> 
 		</dependency>
 		
-	 <dependency>
+	 <!-- <dependency>
 	    <groupId>com.dubbo.facade.user</groupId>
 	    <artifactId>facade-user</artifactId>
 	    <version>${zk-facade-user.version}</version>
-	</dependency> 
+	</dependency>  -->
 	
   </dependencies>
   

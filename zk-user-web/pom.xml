@@ -132,7 +132,11 @@
         <artifactId>spring-test</artifactId>
         <version>${spring.version}</version>
     </dependency>
-    
+    <dependency>
+	    <groupId>com.dubbo.facade.user</groupId>
+	    <artifactId>facade-user</artifactId>
+	    <version>${zk-facade-user.version}</version>
+	</dependency> 
     
   </dependencies>
   <build>
