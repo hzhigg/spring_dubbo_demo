@@ -84,7 +84,7 @@
     		 <mvc:mapping path="/**" />
     		 <!-- 不进行拦截 -->
     		 <mvc:exclude-mapping path="/index.html"/>
-    		 <bean class="com.common.filter.LoginInterceptor"/>  
+    		 <bean class="com.zk.web.filter.LoginInterceptor"/>  
     	</mvc:interceptor>
     </mvc:interceptors>
     

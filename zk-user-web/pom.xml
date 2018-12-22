@@ -38,6 +38,11 @@
 	    <artifactId>facade-user</artifactId>
 	    <version>${zk-facade-user.version}</version>
 	</dependency>  
+	<!-- <dependency>
+   		<groupId>com.dubbo.common</groupId>
+	 	<artifactId>dubbocommon</artifactId>
+ 		<version>${zk-common.version}</version>
+   	</dependency> -->
 	<!-- service 引了没用 -->
 	 <!-- <dependency>
    		<groupId>com.dubbo.service</groupId>
